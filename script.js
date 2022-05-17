@@ -1,5 +1,6 @@
 const gridEl = document.getElementById('grid');
 const selectlev = document.getElementById('grid');
+const playbutton = document.querySelector("button")
 
 const createmyelement = () => {
     const node = document.createElement("div");
@@ -46,7 +47,8 @@ playbutton.addEventListener("click",
         let nCells, classCells;
         gridEl.innerHTML= "";
 
-        const chooselevel = parseInt(selectlev.value);
+        const chooselevel = parseInt(selectlev.value)
+        console.log(chooselevel);
     }
 
 
