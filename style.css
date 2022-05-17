@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#grid{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 150vh;
+}
+.square{
+    flex-basis: calc(100% / 8);
+    height: calc(100% / 8);
+    border: solid 1px black;
+    display: flex;
+}
+
+.clicked {
+    background-color: violet;
+}
