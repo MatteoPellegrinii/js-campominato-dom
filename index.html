@@ -4,25 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+
+    <title>MineField!</title>
 </head>
 <body>
-
     <header>
-        <select name="difficoltà" id="level">
-            <option value="0">easy</option>
-            <option value="1">medium</option>
-            <option value="2">hard</option>
-        </select>
-        <button>genera</button>
+        <h2>Scegli un livello:</h2>
+        <button id="easy" class="btn"><h2>Facile</h2><br>100 caselle</button>
+        <button id="medium" class="btn"><h2>Medio</h2><br>81 caselle</button>
+        <button id="hard" class="btn"><h2>DIffcile</h2><br>49 caselle</button>
+        <br>
     </header>
-
-
-    <div id="grid"></div>
-    
-
-
+    <main>
+        <div id="field_container">
+        </div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>

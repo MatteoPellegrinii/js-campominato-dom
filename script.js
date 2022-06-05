@@ -1,75 +1,144 @@
-const gridEl = document.getElementById('grid');
-const selectlev = document.getElementById('grid');
-const playbutton = document.querySelector("button")
 
-const createmyelement = () => {
-    const node = document.createElement("div");
-    node.className = "square";
-    return node;
-}
+const field = document.getElementById("field_container");
 
-const myNewArrRandom = createUNiqueRandomNUm (64, 1, 64);
-console.log(myNewArrRandom);
 
-for (let i = 0; i < myNewArrRandom.length; i++) {
-    const divEL = createmyelement();
-    
 
-    divEL.addEventListener("click",
-        function(){
-            this.classList.add("clicked");
-        }
-    )
-    gridEl.append(divEL);
-    divEL.innerHTML = myNewArrRandom[i];
-}
+const easyField = document.getElementById("easy");
 
-function createUNiqueRandomNUm(numItems, min, max) {
-    const ArrInt = [];
-    while ( ArrInt.length < numItems){
-        let randomnumint = getrandomnumminmax(min,max);
-        if (!ArrInt.includes(randomnumint)){
-            ArrInt.push(randomnumint);
-        }
+const mediumField = document.getElementById("medium");
+
+const hardField = document.getElementById("hard");
+
+
+
+easyField.addEventListener("click", 
+    function () {
+
+        clearField();
+        fieldGen(100, " easy_slot");
     }
+)
 
-    return ArrInt
-}
+mediumField.addEventListener("click", 
+    function () {
 
-function getrandomnumminmax (Rangemin, Rangemax) {
-    let result = Math.floor(Math.random() * (Rangemax- Rangemin+1)) + Rangemin ;
-
-    return result;
-}
-
-playbutton.addEventListener("click",
-    () => {
-        let nCells, classCells;
-        gridEl.innerHTML= "";
-
-        const chooselevel = parseInt(selectlev.value)
-        console.log(chooselevel);
+        clearField();
+        fieldGen(81, " medium_slot");
     }
+)
 
+hardField.addEventListener("click", 
+    function () {
 
-
+        clearField();
+        fieldGen(49, " hard_slot");
+    }
 )
 
 
-switch (chooselevel) {
-    case 0:
-        default: 
-            nCells = 100;
-            classCells = "square10"
-    break
+function fieldGen(nSlot, slotClass) {
 
-    case 1:
-        nCells = 81;
-        classCells = "square9"
-    break;
+    let allSlot = [];
 
-    case 2:
-        nCells = 49;
-        classCells = "square7"
-    break;
+    let bombSlot = [];
+    
+    let score = 0;
+
+    let play = 1;
+
+    while ( allSlot.length < nSlot && play == 1) {
+
+        let tagSlot = Math.floor(Math.random() * nSlot + 1 );
+        
+        if (!allSlot.includes(tagSlot)) {
+
+            if (tagSlot <= 16 ) {
+
+                allSlot.push(tagSlot);
+
+                bombSlot.push(tagSlot);
+
+                slot = document.createElement("div");
+
+                slot.className = "base_slot" + slotClass ;
+                
+                field.append(slot);
+                
+                slot.append(tagSlot);
+                
+
+                slot.addEventListener("click",
+                    function() {
+                        this.classList.add("bombexplode");
+                        
+                        console.log("Sei morto sulla bomba nr",tagSlot,".Hai totalizzato",score,"punti.");
+
+
+                    }
+                )
+                
+            }
+            else {
+
+                allSlot.push(tagSlot);
+
+                slot = document.createElement("div");
+
+                slot.className = "base_slot" + slotClass ;
+
+                field.append(slot);
+
+                slot.append(tagSlot);    
+
+                slot.addEventListener("click",
+
+                    function() {
+                        if (this.classList == "base_slot" + slotClass ) {
+                            
+                            this.classList.add("checked");
+
+                            score++;
+
+                            console.log(score);
+
+                        }
+
+                        else {
+                        
+                            console.log(score);
+                        
+                        }
+                        
+                    } 
+                    ) 
+            }
+        }
+        
+    }
+
+    console.log(allSlot);
+    console.log(bombSlot);
+
+}
+
+function endgame(className){
+    var elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].field.removeChild(elements[0]);
+    }
+}
+
+function gameOver() {
+    let oldSlot = field.lastElementChild;
+    while (oldSlot) {
+        field.removeChild(oldSlot);
+        oldSlot = field.lastElementChild;
+    }
+}
+function clearField() {
+    let oldSlot = field.lastElementChild;
+    while (oldSlot) {
+        field.removeChild(oldSlot);
+        oldSlot = field.lastElementChild;
+    }
 }
